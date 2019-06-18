@@ -51,9 +51,18 @@ def set_aanwijzen(gedeeld, index_eerste, index_tweede, index_derde):
         return False
     
 def set_vervangen(gedeeld, eerste, tweede, derde, dek):
-    del gedeeld[int(derde)-1]
-    del gedeeld[int(tweede)-1]
-    del gedeeld[int(eerste)-1]
+    del gedeeld[int(derde)]
+    del gedeeld[int(tweede)]
+    del gedeeld[int(eerste)]
+    gedeeld.append(dek.pop())
+    gedeeld.append(dek.pop())
+    gedeeld.append(dek.pop())
+    return gedeeld
+
+def geen_set_gedeeld(gedeeld, dek):
+    del gedeeld[2]
+    del gedeeld[1]
+    del gedeeld[0]
     gedeeld.append(dek.pop())
     gedeeld.append(dek.pop())
     gedeeld.append(dek.pop())
