@@ -28,8 +28,8 @@ def waar_geklikt(positie_muis, plekx, pleky):
                    "02":6,"12":7,"22":8,
                    "03":9,"13":10,"23":11,}
     
-    x = str(tussen(positie_muis[0], plekx, 200))
-    y = str(tussen(positie_muis[1], pleky, 100))
+    x = str(tussen(positie_muis[0], plekx, 150))
+    y = str(tussen(positie_muis[1], pleky, 50))
     if x+y in locatie_dict:
         geklikte_kaart = locatie_dict[x+y]
         return geklikte_kaart
