@@ -43,8 +43,9 @@ def eerste_keer_delen(dek):#pakt de laatste twaalf kaarten uit de lijst.
         gedeeld.append(dek.pop()) #verwijder kaarten uit dek en voeg toe aan uitgedeelde kaart
     return gedeeld
 
-def set_aanwijzen(mogelijke_sets, gekozen_kaarten):
+def set_aanwijzen(gedeeld, gekozen_kaarten):
     index_eerste, index_tweede, index_derde = [kaart for kaart in gekozen_kaarten]
+    mogelijke_sets = alle_sets_vinden(gedeeld)
     if [index_eerste,index_tweede, index_derde] in mogelijke_sets:
         return True
     else:

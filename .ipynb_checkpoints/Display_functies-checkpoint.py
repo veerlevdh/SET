@@ -36,6 +36,12 @@ def waar_geklikt(positie_muis, plekx, pleky):
     else:
         return "zwart"
 
+def print_gedeelde_kaarten(gedeelde_kaarten, plekx, pleky):
+    nummer = 0
+    for y in range(0,4):
+        for x in range(0,3):
+            display_surface.blit(gedeelde_kaarten[nummer].image, (plekx[x], pleky[y]))
+            nummer+=1
         
         
         

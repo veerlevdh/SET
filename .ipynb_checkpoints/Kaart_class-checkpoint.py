@@ -1,5 +1,4 @@
 import pygame 
-
 kleur_dict = {-1:"green",
                0: "red",
                1: "purple"}
@@ -23,11 +22,10 @@ class kaart:
         self.kleur = kleur
         self.vulling = vulling
         self.vorm = vorm
-        self.vector = [aantal, kleur, vulling, vorm]
-        #lijst met alle eigenschappen in vector vorm
+        self.vector = [aantal, kleur, vulling, vorm] #lijst met alle eigenschappen in vector vorm
         
         plaatje =  str(kleur_dict[self.kleur]) + str(vorm_dict[self.vorm]) + str(vulling_dict[self.aantal]) + str(aantal_dict[self.vulling])
-        self.image = pygame.image.load("img/" + plaatje + ".png")
+        self.image = pygame.image.load ("img/" + plaatje + ".png")
     
     def welk(self, eerste, tweede): #welke eigenschap is er nodig om een set te kunnen maken. Let op checkt maar voor een eigenschap
         if eerste + tweede == 2:
