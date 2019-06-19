@@ -43,17 +43,19 @@ def eerste_keer_delen(dek):#pakt de laatste twaalf kaarten uit de lijst.
         gedeeld.append(dek.pop()) #verwijder kaarten uit dek en voeg toe aan uitgedeelde kaart
     return gedeeld
 
-def set_aanwijzen(gedeeld, index_eerste, index_tweede, index_derde):
+def set_aanwijzen(gedeeld, gekozen_kaarten):
+    index_eerste, index_tweede, index_derde = [kaart for kaart in gekozen_kaarten]
     mogelijke_sets = alle_sets_vinden(gedeeld)
     if [index_eerste,index_tweede, index_derde] in mogelijke_sets:
         return True
     else:
         return False
     
-def set_vervangen(gedeeld, eerste, tweede, derde, dek):
-    del gedeeld[int(derde)]
-    del gedeeld[int(tweede)]
-    del gedeeld[int(eerste)]
+def set_vervangen(gedeeld, gekozen_kaarten, dek):
+    index_eerste, index_tweede, index_derde = [kaart for kaart in gekozen_kaarten]
+    del gedeeld[int(index_eerste)]
+    del gedeeld[int(index_tweede)]
+    del gedeeld[int(index_derde)]
     gedeeld.append(dek.pop())
     gedeeld.append(dek.pop())
     gedeeld.append(dek.pop())
