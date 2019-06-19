@@ -28,13 +28,20 @@ def waar_geklikt(positie_muis, plekx, pleky):
                    "02":6,"12":7,"22":8,
                    "03":9,"13":10,"23":11,}
     
-    x = str(tussen(positie_muis[0], plekx, 150))
-    y = str(tussen(positie_muis[1], pleky, 50))
+    x = str(tussen(positie_muis[0], plekx, 200))
+    y = str(tussen(positie_muis[1], pleky, 100))
     if x+y in locatie_dict:
         geklikte_kaart = locatie_dict[x+y]
         return geklikte_kaart
     else:
         return "zwart"
+
+def print_gedeelde_kaarten(gedeelde_kaarten, plekx, pleky):
+    nummer = 0
+    for y in range(0,4):
+        for x in range(0,3):
+            display_surface.blit(gedeelde_kaarten[nummer].image, (plekx[x], pleky[y]))
+            nummer+=1
         
         
         

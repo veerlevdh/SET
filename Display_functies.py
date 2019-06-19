@@ -35,6 +35,7 @@ def waar_geklikt(positie_muis, plekx, pleky):
         return geklikte_kaart
     else:
         return "zwart"
+
         
         
         
