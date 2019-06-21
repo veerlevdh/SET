@@ -19,12 +19,19 @@ pleky, plekx = disp.locatie_kaarten(X,Y)
 gekozen_kaarten = []
 punten = 0
 
-def print_scherm():
+def print_scherm(scherm):
     nummer = 0
     for y in range(0,4):
         for x in range(0,3):
-            display_surface.blit(gedeelde_kaarten[nummer].image, (plekx[x], pleky[y]))
+            scherm.blit(gedeelde_kaarten[nummer].image, (plekx[x], pleky[y]))
             nummer+=1
+
+def tijd_over(start_tijd):
+        tijd = 30 - (int(time.time()) - start_tijd)
+        if tijd > 0:
+            return True, tijd
+        else:
+            return False, tijd
 
 pygame.init() 
 # maak een scherm van grootte X bij Y 
@@ -44,20 +51,17 @@ while True :
     display_surface.fill(zwart) 
 
 # plak de afbeeldingen van de twaalf kaarten op de locaties die we eerder met de functie locatie_kaarten hebben bepaald
-    print_scherm()
+    print_scherm(display_surface)
     
 #puntentelling    
     display_surface.blit(Punten_telling,(50,15))
     
 #Tijd bijhouden
-    huidige_tijd = time.time()
-    tijd_verstreken = 30 - (int(huidige_tijd) - start_tijd)
-    
 
-    if tijd_verstreken > 0:
-        text = myFont.render(("Tijd: " + str(tijd_verstreken)  +" seconden"), 1, (255,0,0))
+    Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, (255,0,0))
+    if tijd_over(start_tijd)[0] is True:
+        text = myFont.render(("Tijd: " + str(tijd_over(start_tijd)[1])  +" seconden"), 1, (255,0,0))
         display_surface.blit(text, (plekx[2],15))
-        #pygame.display.flip()
     else:
         text = myFont.render("Te laat!", 1, (255,0,0))
         display_surface.blit(text, (plekx[2], 15))
