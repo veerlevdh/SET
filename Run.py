@@ -4,7 +4,6 @@ import Dek_functies as dek
 import Kaart_class as cards
 import Display_functies as disp
 import time, sys, random, pygame
-import time
 
 #setup voor het spel
 alle_kaarten = dek.maak_dek()
@@ -28,18 +27,15 @@ def print_scherm():
             nummer+=1
 
 pygame.init() 
-
+# maak een scherm van grootte X bij Y 
 display_surface = pygame.display.set_mode((X, Y))
+
+# geef je scherm een naam
 pygame.display.set_caption('SET')
 
 myFont = pygame.font.SysFont("Impact", 24)
 Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, (255,0,0))
-# maak een scherm van grootte X bij Y 
- 
-
   
-# geef je scherm een naam
- 
 start_tijd = int(time.time())
 
 while True : 
@@ -71,7 +67,7 @@ while True :
 
         start_tijd = int(time.time())
         punten -= 1
-    #pygame.display.update()
+    pygame.display.flip()
 
     # Haal alle events op
     for event in pygame.event.get() : 
