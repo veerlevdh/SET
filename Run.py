@@ -66,7 +66,7 @@ while True :
         text = myFont.render("Te laat!", 1, (255,0,0))
         display_surface.blit(text, (plek_x_y[0][2], 15))
         dek.set_vervangen(gedeelde_kaarten, alle_kaarten)
-        gevonden_sets = dek.alle_sets_vinden(alle_kaarten)
+        gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
         gekozen_kaarten = []
 
         start_tijd = int(time.time())
@@ -91,7 +91,7 @@ while True :
             #zodra er drie kaarten zijn gevonden
             if len(gekozen_kaarten) == 3:
                 gekozen_kaarten.sort() #sorteer omdat det herkenning werkt met gesorteerde lijst
-                
+                print(gevonden_sets)
                 if dek.set_aanwijzen(gevonden_sets, gekozen_kaarten) is True:
                     dek.set_vervangen(gedeelde_kaarten, alle_kaarten, gekozen_kaarten)
                     gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
