@@ -4,14 +4,16 @@ import random
 import pygame
 
 def locatie_kaarten(X,Y):
-    Y_coordinaten = []
-    hoogte = (Y-100)/4
     X_coordinaten = []
     breedte = (X-100)/3
     for i in range(3):
         X_coordinaten.append(50+int(i*breedte))
+
+    Y_coordinaten = []
+    hoogte = (Y-100)/4
     for j in range(4):
         Y_coordinaten.append(50+int(j*hoogte))
+    
     return [X_coordinaten, Y_coordinaten] #lijst met coördinaten waar kaarten moeten worden geplaatst.
 
 

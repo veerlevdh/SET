@@ -97,16 +97,12 @@ while True :
                     gevonden_sets = dek.alle_sets_vinden(alle_kaarten)
                     punten += 1
                 
-                else:
+                else: #min een punt
                     punten -= 1
                 #reset de gekozen kaarten naar lege lijst
                 gekozen_kaarten = []
              
-               
-        
-        # if event object type is QUIT 
-        # then quitting the pygame 
-        # and program both. 
+        #Spel stoppen met kruisje boven in window 
         if event.type == pygame.QUIT : 
             pygame.quit() 
   

@@ -39,11 +39,11 @@ def print_gedeeld(gedeeld):# drukt alle kaarten in gedeeld af
 
 def eerste_keer_delen(dek):#pakt de laatste twaalf kaarten uit de lijst. 
     gedeeld=[]
-    for i in range(0,12):
+    for _ in range(0,12):
         gedeeld.append(dek.pop()) #verwijder kaarten uit dek en voeg toe aan uitgedeelde kaart
     return gedeeld
 
-def set_aanwijzen(mogelijke_sets, gekozen_kaarten):
+def set_aanwijzen(mogelijke_sets, gekozen_kaarten): #Zijn de gegeven kaarten een set
     index_eerste, index_tweede, index_derde = [kaart for kaart in gekozen_kaarten]
     if [index_eerste,index_tweede, index_derde] in mogelijke_sets:
         return True
