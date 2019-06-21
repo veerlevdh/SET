@@ -94,7 +94,7 @@ while True :
                 
                 if dek.set_aanwijzen(gevonden_sets, gekozen_kaarten) is True:
                     dek.set_vervangen(gedeelde_kaarten, alle_kaarten, gekozen_kaarten)
-                    gevonden_sets = dek.alle_sets_vinden(alle_kaarten)
+                    gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
                     punten += 1
                 
                 else: #min een punt
