@@ -36,7 +36,7 @@ def waar_geklikt(positie_muis, plek_x_y):
         geklikte_kaart = locatie_dict[x+y]
         return geklikte_kaart
     else:
-        return "zwart"
+        return False
 
 
 

@@ -23,16 +23,18 @@ def tijd_over(start_tijd):
 alle_kaarten = dek.maak_dek()
 gedeelde_kaarten = dek.eerste_keer_delen(alle_kaarten)
 gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
-zwart = (0,0,0) 
-rood = (255,0,0)  
+gekozen_kaarten = []
+punten = 0 
 
 # bepaal de breedte (X) en hoogte (Y) van je scherm 
 X = 1000
 Y = 600
 plek_x_y = disp.locatie_kaarten(X,Y)
+#kies kleuren
+zwart =(0,0,0)
+rood = (255,0,0) 
+wit =  (255,255,255)
 
-gekozen_kaarten = []
-punten = 0
 
 pygame.init() 
 # maak een scherm van grootte X bij Y 
@@ -41,29 +43,33 @@ display_surface = pygame.display.set_mode((X, Y))
 # geef je scherm een naam
 pygame.display.set_caption('SET')
 
+#initialiseer het font
 myFont = pygame.font.SysFont("Impact", 24)
-Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, (255,0,0))
-  
+Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
+
+#haal huidige tijd op  
 start_tijd = int(time.time())
 
-while True : 
+while True: 
+    #update het scherm
     pygame.display.flip()
-# vul je scherm zwart
+
+# Maak de achtergrond zwart
     display_surface.fill(zwart) 
 
 # plak de afbeeldingen van de twaalf kaarten op de locaties die we eerder met de functie locatie_kaarten hebben bepaald
     print_scherm(display_surface)
     
 #puntentelling  
-    Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, (255,0,0))
+    Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
     display_surface.blit(Punten_telling,(50,15))
     
 #Tijd bijhouden
     if tijd_over(start_tijd)[0] is True:
-        text = myFont.render(("Tijd: " + str(tijd_over(start_tijd)[1])  +" seconden"), 1, (255,0,0))
+        text = myFont.render(("Tijd: " + str(tijd_over(start_tijd)[1])  +" seconden"), 1, wit)
         display_surface.blit(text, (plek_x_y[0][2],15))
     else:
-        text = myFont.render("Te laat!", 1, (255,0,0))
+        text = myFont.render("Te laat!", 1, wit)
         display_surface.blit(text, (plek_x_y[0][2], 15))
         dek.set_vervangen(gedeelde_kaarten, alle_kaarten)
         gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
@@ -75,16 +81,16 @@ while True :
 
     # Haal alle events op
     for event in pygame.event.get() : 
+       
         #Haal (x,y) van muis op  
         positie_muis = pygame.mouse.get_pos() 
         
         if event.type == pygame.MOUSEBUTTONDOWN: #Als er op muis is geklikt 
             klik_locatie = disp.waar_geklikt(positie_muis, plek_x_y)
-            if klik_locatie is not "zwart": #als op een kaart geklikt
+            if klik_locatie is not False: #als op een kaart geklikt
                 if klik_locatie not in gekozen_kaarten:
-                    gekozen_kaarten.append(klik_locatie)  
-                
-                print(gekozen_kaarten)
+                    gekozen_kaarten.append(klik_locatie)    
+                    print(gekozen_kaarten)
              
             
 
