@@ -1,7 +1,6 @@
 import Kaart_class as cards
 import Dek_functies as deks
-import random
-import pygame
+
 
 def locatie_kaarten(X,Y):
     X_coordinaten = []

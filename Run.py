@@ -5,15 +5,18 @@ import Kaart_class as cards
 import Display_functies as disp
 import time, sys, random, pygame
 
-def print_scherm(scherm):
+def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
     nummer = 0
-    for y in range(0,4):
-        for x in range(0,3):
+    aantal_kaarten = len(gedeelde_kaarten)
+
+    display_surface.fill(zwart) 
+    for y in range(0, aantal_kaarten//3):
+        for x in range(0, aantal_kaarten//4):
             scherm.blit(gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
-            nummer+=1
+            nummer += 1
 
 def tijd_over(start_tijd):
-        tijd = 30 - (int(time.time()) - start_tijd)
+        tijd = 1- (int(time.time()) - start_tijd)
         if tijd > 0:
             return True, tijd
         else:
@@ -31,9 +34,9 @@ X = 1000
 Y = 600
 plek_x_y = disp.locatie_kaarten(X,Y)
 #kies kleuren
-zwart =(0,0,0)
-rood = (255,0,0) 
-wit =  (255,255,255)
+zwart=(0,0,0)
+rood =(255,0,0) 
+wit  =(255,255,255)
 
 
 pygame.init() 
@@ -55,10 +58,9 @@ while True:
     pygame.display.flip()
 
 # Maak de achtergrond zwart
-    display_surface.fill(zwart) 
 
 # plak de afbeeldingen van de twaalf kaarten op de locaties die we eerder met de functie locatie_kaarten hebben bepaald
-    print_scherm(display_surface)
+    print_scherm(display_surface,gedeelde_kaarten, gekozen_kaarten)
     
 #puntentelling  
     Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
@@ -68,10 +70,10 @@ while True:
     if tijd_over(start_tijd)[0] is True:
         text = myFont.render(("Tijd: " + str(tijd_over(start_tijd)[1])  +" seconden"), 1, wit)
         display_surface.blit(text, (plek_x_y[0][2],15))
-    else:
+    else: #computer verwijdert een set
         text = myFont.render("Te laat!", 1, wit)
         display_surface.blit(text, (plek_x_y[0][2], 15))
-        dek.set_vervangen(gedeelde_kaarten, alle_kaarten)
+        dek.set_vervangen(gedeelde_kaarten, alle_kaarten, dek.computer_set(gevonden_sets))
         gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
         gekozen_kaarten = []
 
