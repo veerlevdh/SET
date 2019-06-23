@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-
-import Dek_class as dek
 import Kaart_class as cards
+import Dek_class as dek
 import Display_functies as disp
 import time, sys, random, pygame
 
