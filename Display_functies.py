@@ -1,5 +1,5 @@
 import Kaart_class as cards
-import Dek_functies as deks
+import Dek_class as deks
 import time
 
 
