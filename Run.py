@@ -5,6 +5,10 @@ import Kaart_class as cards
 import Display_functies as disp
 import time, sys, random, pygame
 
+
+
+    
+
 def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
     nummer = 0
     aantal_kaarten = len(gedeelde_kaarten)
@@ -15,17 +19,8 @@ def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
             scherm.blit(gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
             nummer += 1
 
-def tijd_over(start_tijd):
-        tijd = 1- (int(time.time()) - start_tijd)
-        if tijd > 0:
-            return True, tijd
-        else:
-            return False, tijd
-
 #setup voor het spel
-alle_kaarten = dek.maak_dek()
-gedeelde_kaarten = dek.eerste_keer_delen(alle_kaarten)
-gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
+het_spel = dek.spel() 
 gekozen_kaarten = []
 punten = 0 
 
@@ -53,6 +48,7 @@ Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
 #haal huidige tijd op  
 start_tijd = int(time.time())
 
+
 while True: 
     #update het scherm
     pygame.display.flip()
@@ -60,21 +56,20 @@ while True:
 # Maak de achtergrond zwart
 
 # plak de afbeeldingen van de twaalf kaarten op de locaties die we eerder met de functie locatie_kaarten hebben bepaald
-    print_scherm(display_surface,gedeelde_kaarten, gekozen_kaarten)
+    print_scherm(display_surface, het_spel.gedeelde_kaarten, gekozen_kaarten)
     
 #puntentelling  
     Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
     display_surface.blit(Punten_telling,(50,15))
     
 #Tijd bijhouden
-    if tijd_over(start_tijd)[0] is True:
-        text = myFont.render(("Tijd: " + str(tijd_over(start_tijd)[1])  +" seconden"), 1, wit)
+    if disp.tijd_over(start_tijd)[0] is True:
+        text = myFont.render(("Tijd: " + str(disp.tijd_over(start_tijd)[1])  +" seconden"), 1, wit)
         display_surface.blit(text, (plek_x_y[0][2],15))
     else: #computer verwijdert een set
         text = myFont.render("Te laat!", 1, wit)
         display_surface.blit(text, (plek_x_y[0][2], 15))
-        dek.set_vervangen(gedeelde_kaarten, alle_kaarten, dek.computer_set(gevonden_sets))
-        gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
+        het_spel.set_vervangen(het_spel.computer_set())
         gekozen_kaarten = []
 
         start_tijd = int(time.time())
@@ -98,11 +93,10 @@ while True:
 
             #zodra er drie kaarten zijn gevonden
             if len(gekozen_kaarten) == 3:
-                gekozen_kaarten.sort() #sorteer omdat det herkenning werkt met gesorteerde lijst
-                print(gevonden_sets)
-                if dek.set_aanwijzen(gevonden_sets, gekozen_kaarten) is True:
-                    dek.set_vervangen(gedeelde_kaarten, alle_kaarten, gekozen_kaarten)
-                    gevonden_sets = dek.alle_sets_vinden(gedeelde_kaarten)
+                print(het_spel.gevonden_sets)
+                if het_spel.set_aanwijzen(gekozen_kaarten) is True:
+                    het_spel.set_vervangen(gekozen_kaarten)
+                    start_tijd = int(time.time())
                     punten += 1
                 
                 else: #min een punt

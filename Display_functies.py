@@ -1,5 +1,6 @@
 import Kaart_class as cards
 import Dek_functies as deks
+import time
 
 
 def locatie_kaarten(X,Y):
@@ -14,7 +15,6 @@ def locatie_kaarten(X,Y):
         Y_coordinaten.append(50+int(j*hoogte))
     
     return [X_coordinaten, Y_coordinaten] #lijst met coördinaten waar kaarten moeten worden geplaatst.
-
 
 def tussen(positie_muis, hoekpunten, x_of_y):
     for i in range(len(hoekpunten)):
@@ -36,6 +36,13 @@ def waar_geklikt(positie_muis, plek_x_y):
         return geklikte_kaart
     else:
         return False
+
+def tijd_over(start_tijd):
+    tijd = 20- (int(time.time()) - start_tijd)
+    if tijd > 0:
+        return True, tijd
+    else:
+        return False, tijd
 
 
 
