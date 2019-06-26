@@ -1,9 +1,9 @@
 import pygame 
-
+import random
 kleur_dict = {-1:"green",
                0: "red",
                1: "purple"}  
-               
+
 vulling_dict = {-1:"filled",
                  0: "shaded",
                  1: "empty"}
@@ -17,7 +17,7 @@ aantal_dict = {-1: "1",
                 1: "3"}
 
 class kaart:
-    import random
+    
     def __init__(self, aantal, kleur, vulling, vorm):
         self.aantal = aantal
         self.kleur = kleur

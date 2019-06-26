@@ -22,7 +22,6 @@ def tussen(positie_muis, hoekpunten, x_of_y):
     return 42
 
 def waar_geklikt(positie_muis, plek_x_y):
-    
     locatie_dict= {"00":0,"10":1,"20":2,
                    "01":3,"11":4,"21":5,
                    "02":6,"12":7,"22":8,
@@ -36,8 +35,8 @@ def waar_geklikt(positie_muis, plek_x_y):
     else:
         return False
 
-def tijd_over(start_tijd):
-    tijd = 30 - (int(time.time()) - start_tijd)
+def tijd_over(start_tijd, tijd_moeilijkheid):
+    tijd =  tijd_moeilijkheid - (int(time.time()) - start_tijd)
     if tijd > 0:
         return True, tijd
     else:

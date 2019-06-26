@@ -6,7 +6,6 @@ class spel:
         self.dek = self.maak_dek()
         self.gedeelde_kaarten = self.eerste_keer_delen(self.dek)
         self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten)
-        self.kaartenOver = True
     
     def set_vervangen(self, gekozen_kaarten):
         if len(self.dek) > 3: #Als er nog nieuwe kaarten zijn
@@ -24,6 +23,7 @@ class spel:
             return True
         else:
             return False
+    
     
     @staticmethod
     def maak_dek(): #maak alle mogelijke kaarten en returned deze in willekeurige volgorde
