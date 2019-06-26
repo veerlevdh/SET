@@ -38,7 +38,7 @@ def waar_geklikt(positie_muis, plek_x_y):
         return False
 
 def tijd_over(start_tijd):
-    tijd = 20- (int(time.time()) - start_tijd)
+    tijd = 30- (int(time.time()) - start_tijd)
     if tijd > 0:
         return True, tijd
     else:

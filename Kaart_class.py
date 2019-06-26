@@ -27,7 +27,7 @@ class kaart:
         #lijst met alle eigenschappen in vector vorm
         
         plaatje =  str(kleur_dict[self.kleur]) + str(vorm_dict[self.vorm]) + str(vulling_dict[self.aantal]) + str(aantal_dict[self.vulling])
-        self.image = pygame.image.load ("img/" + plaatje + ".png")
+        self.image = pygame.image.load("img/" + plaatje + ".png")
     
     def welk(self, eerste, tweede): #welke eigenschap is er nodig om een set te kunnen maken. Let op checkt maar voor een eigenschap
         if eerste + tweede == 2:

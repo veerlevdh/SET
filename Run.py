@@ -4,20 +4,18 @@ import Dek_class as dek
 import Display_functies as disp
 import time, sys, random, pygame
 
-
-
-    
-
 def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
     nummer = 0
     aantal_kaarten = len(gedeelde_kaarten)
 
     display_surface.fill(zwart) 
+
     for y in range(0, aantal_kaarten//3):
         for x in range(0, aantal_kaarten//4):
             scherm.blit(gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
             nummer += 1
 
+spel_klaar = False
 #setup voor het spel
 het_spel = dek.spel() 
 gekozen_kaarten = []
@@ -31,9 +29,16 @@ plek_x_y = disp.locatie_kaarten(X,Y)
 zwart=(0,0,0)
 rood =(255,0,0) 
 wit  =(255,255,255)
-
+aantal_keer_gedeeld = []
 
 pygame.init() 
+
+def print_gekozen_kaarten(gekozen_kaarten):
+    string_gekozen = ""
+    for kaart in gekozen_kaarten:
+            string_gekozen = string_gekozen + " " + str(kaart+1)
+    aangeklikte_kaarten = myFont.render("Geselecteerde kaarten: "+ string_gekozen, 1, wit)
+    display_surface.blit(aangeklikte_kaarten,(50,550))
 # maak een scherm van grootte X bij Y 
 display_surface = pygame.display.set_mode((X, Y))
 
@@ -48,7 +53,7 @@ Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
 start_tijd = int(time.time())
 
 
-while True: 
+while spel_klaar is False: 
     #update het scherm
     pygame.display.flip()
 
@@ -60,7 +65,7 @@ while True:
 #puntentelling  
     Punten_telling = myFont.render('Aantal punten: ' + str(punten), 1, wit)
     display_surface.blit(Punten_telling,(50,15))
-    
+    print_gekozen_kaarten(gekozen_kaarten)
 #Tijd bijhouden
     if disp.tijd_over(start_tijd)[0] is True:
         text = myFont.render(("Tijd: " + str(disp.tijd_over(start_tijd)[1])  +" seconden"), 1, wit)
@@ -69,11 +74,14 @@ while True:
         text = myFont.render("Te laat!", 1, wit)
         display_surface.blit(text, (plek_x_y[0][2], 15))
         het_spel.set_vervangen(het_spel.computer_set())
+        aantal_keer_gedeeld.append(1)
+        print(len(aantal_keer_gedeeld))
         gekozen_kaarten = []
 
         start_tijd = int(time.time())
         punten -= 1
-    
+    if len(aantal_keer_gedeeld) == 22:
+        spel_klaar = True
 
     # Haal alle events op
     for event in pygame.event.get() : 
@@ -86,26 +94,47 @@ while True:
             if klik_locatie is not False: #als op een kaart geklikt
                 if klik_locatie not in gekozen_kaarten:
                     gekozen_kaarten.append(klik_locatie)    
-                    print(gekozen_kaarten)
-             
-            
+                else:
+                    gekozen_kaarten.remove(klik_locatie)
 
             #zodra er drie kaarten zijn gevonden
             if len(gekozen_kaarten) == 3:
                 print(het_spel.gevonden_sets)
+                gekozen_kaarten.sort()
                 if het_spel.set_aanwijzen(gekozen_kaarten) is True:
                     het_spel.set_vervangen(gekozen_kaarten)
+                    aantal_keer_gedeeld.append(1)
+                    print(len(aantal_keer_gedeeld))
+                    print(het_spel.gevonden_sets)
                     start_tijd = int(time.time())
                     punten += 1
+                    #BLIJ GELUID
                 
-                else: #min een punt
+                else: #min een punt bij verkeerde set ingeven
                     punten -= 1
+                    #STOM GELUID
                 #reset de gekozen kaarten naar lege lijst
                 gekozen_kaarten = []
-             
+
+
+
         #Spel stoppen met kruisje boven in window 
         if event.type == pygame.QUIT : 
             pygame.quit() 
   
             quit() 
+
+while spel_klaar is True:
+    endFont = pygame.font.SysFont("Javanese Text", 40)
+    display_surface.fill(zwart) 
+    klaar = endFont.render("Het spel is klaar, je hebt:  "+ str(punten)+" behaald!!!", 1, rood)
+    klaar_rect = klaar.get_rect(center=(X/2,Y/2))
+    display_surface.blit(klaar, klaar_rect)
+    pygame.display.flip()
+
+    for event in pygame.event.get():
+
+        if event.type == pygame.QUIT : 
+            pygame.quit() 
   
+            quit()
