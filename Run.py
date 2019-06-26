@@ -15,8 +15,9 @@ def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
             scherm.blit(gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
             nummer += 1
 
-spel_klaar = False
+
 #setup voor het spel
+spel_klaar = False #houdt bij of het spel klaar is of niet
 het_spel = dek.spel() 
 gekozen_kaarten = []
 punten = 0 
@@ -25,12 +26,12 @@ punten = 0
 X = 1000
 Y = 600
 plek_x_y = disp.locatie_kaarten(X,Y)
+
 #kies kleuren
 zwart=(0,0,0)
 rood =(255,0,0) 
 wit  =(255,255,255)
-blauw = (0,0,255)
-geel = (0,255,0)
+
 aantal_keer_gedeeld = []
 
 pygame.init() 
@@ -41,6 +42,7 @@ def print_gekozen_kaarten(gekozen_kaarten):
             string_gekozen = string_gekozen + " " + str(kaart+1)
     aangeklikte_kaarten = myFont.render("Geselecteerde kaarten: "+ string_gekozen, 1, wit)
     display_surface.blit(aangeklikte_kaarten,(50,550))
+    
 # maak een scherm van grootte X bij Y 
 display_surface = pygame.display.set_mode((X, Y))
 

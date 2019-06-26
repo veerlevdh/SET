@@ -2,7 +2,6 @@ import Kaart_class as cards
 import Dek_class as deks
 import time
 
-
 def locatie_kaarten(X,Y):
     X_coordinaten = []
     breedte = (X-100)/3

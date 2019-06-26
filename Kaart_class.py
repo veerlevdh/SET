@@ -2,8 +2,8 @@ import pygame
 
 kleur_dict = {-1:"green",
                0: "red",
-               1: "purple"}
-    
+               1: "purple"}  
+               
 vulling_dict = {-1:"filled",
                  0: "shaded",
                  1: "empty"}
@@ -50,7 +50,3 @@ class kaart:
         return [self.welk(self.aantal,ander.aantal), self.welk(self.kleur,ander.kleur),
                 self.welk(self.vulling,ander.vulling), self.welk(self.vorm,ander.vorm)]
         
-    #def __str__(self): #specifieke eigenschap van een kaart opvragen door print(kaart)
-     #   return str(kleur_dict[self.kleur]) + str(vorm_dict[self.vorm]) + str(vulling_dict[self.aantal]) + str(aantal_dict[self.vulling])
-
-
