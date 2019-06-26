@@ -25,6 +25,7 @@ class spel:
         else:
             return False
     
+    
     @staticmethod
     def maak_dek(): #maak alle mogelijke kaarten en returned deze in willekeurige volgorde
         dek = [] #81 kaarten in een set dek

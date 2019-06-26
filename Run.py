@@ -78,7 +78,7 @@ while spel_klaar is False:
         het_spel.set_vervangen(het_spel.computer_set())
         aantal_keer_gedeeld.append(1)
         print(len(aantal_keer_gedeeld))
-        pygame.mixer.music.load('Fout.wav')
+        pygame.mixer.music.load('Sounds/Fout.wav')
         pygame.mixer.music.play(0)
         gekozen_kaarten = []
 
@@ -105,7 +105,7 @@ while spel_klaar is False:
                 print(het_spel.gevonden_sets)
                 gekozen_kaarten.sort()
                 if het_spel.set_aanwijzen(gekozen_kaarten) is True:
-                    pygame.mixer.music.load('ding.wav')
+                    pygame.mixer.music.load('Sounds/ding.wav')
                     pygame.mixer.music.play(0)
                     het_spel.set_vervangen(gekozen_kaarten)
                     aantal_keer_gedeeld.append(1)
@@ -116,7 +116,7 @@ while spel_klaar is False:
                     #BLIJ GELUID
                 
                 else: #min een punt bij verkeerde set ingeven
-                    pygame.mixer.music.load('Fout.wav')
+                    pygame.mixer.music.load('Sounds/Fout.wav')
                     pygame.mixer.music.play(0)
                     punten -= 1
                     #STOM GELUID
@@ -131,7 +131,7 @@ while spel_klaar is False:
   
             quit() 
 
-pygame.mixer.music.load('applause.wav')
+pygame.mixer.music.load('Sounds/applause.wav')
 pygame.mixer.music.play(0)
 while spel_klaar is True:
 
