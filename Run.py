@@ -29,6 +29,8 @@ plek_x_y = disp.locatie_kaarten(X,Y)
 zwart=(0,0,0)
 rood =(255,0,0) 
 wit  =(255,255,255)
+blauw = (0,0,255)
+geel = (0,255,0)
 aantal_keer_gedeeld = []
 
 pygame.init() 
@@ -76,6 +78,8 @@ while spel_klaar is False:
         het_spel.set_vervangen(het_spel.computer_set())
         aantal_keer_gedeeld.append(1)
         print(len(aantal_keer_gedeeld))
+        pygame.mixer.music.load('Fout.wav')
+        pygame.mixer.music.play(0)
         gekozen_kaarten = []
 
         start_tijd = int(time.time())
@@ -85,7 +89,6 @@ while spel_klaar is False:
 
     # Haal alle events op
     for event in pygame.event.get() : 
-       
         #Haal (x,y) van muis op  
         positie_muis = pygame.mouse.get_pos() 
         
@@ -102,6 +105,8 @@ while spel_klaar is False:
                 print(het_spel.gevonden_sets)
                 gekozen_kaarten.sort()
                 if het_spel.set_aanwijzen(gekozen_kaarten) is True:
+                    pygame.mixer.music.load('ding.wav')
+                    pygame.mixer.music.play(0)
                     het_spel.set_vervangen(gekozen_kaarten)
                     aantal_keer_gedeeld.append(1)
                     print(len(aantal_keer_gedeeld))
@@ -111,6 +116,8 @@ while spel_klaar is False:
                     #BLIJ GELUID
                 
                 else: #min een punt bij verkeerde set ingeven
+                    pygame.mixer.music.load('Fout.wav')
+                    pygame.mixer.music.play(0)
                     punten -= 1
                     #STOM GELUID
                 #reset de gekozen kaarten naar lege lijst
@@ -124,14 +131,16 @@ while spel_klaar is False:
   
             quit() 
 
+pygame.mixer.music.load('applause.wav')
+pygame.mixer.music.play(0)
 while spel_klaar is True:
+
     endFont = pygame.font.SysFont("Javanese Text", 40)
     display_surface.fill(zwart) 
     klaar = endFont.render("Het spel is klaar, je hebt:  "+ str(punten)+" behaald!!!", 1, rood)
     klaar_rect = klaar.get_rect(center=(X/2,Y/2))
     display_surface.blit(klaar, klaar_rect)
     pygame.display.flip()
-
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT : 
