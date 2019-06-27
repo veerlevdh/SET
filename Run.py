@@ -5,6 +5,7 @@ import Dek_class as dek
 import Display_functies as disp
 import time, sys, random, pygame
 
+#Functie om alle kaarten op het scherm af te drukken.
 def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
     nummer = 0
     aantal_kaarten = len(gedeelde_kaarten)
@@ -20,8 +21,6 @@ X = 900
 Y = 600
 plek_x_y = disp.locatie_kaarten(X,Y)
 
-#setup voor het spel
-
 #kies kleuren
 zwart=(0,0,0)
 rood =(255,0,0) 
@@ -29,6 +28,13 @@ wit  =(255,255,255)
 
 pygame.init() 
 
+#Laad de geluiden in.
+Ding = pygame.mixer.Sound('Sounds/Ding.wav')
+Fout = pygame.mixer.Sound('Sounds/Fout.wav')
+Applause = pygame.mixer.Sound('Sounds/Applause.wav')
+Game_over = pygame.mixer.Sound('Sounds/Game_over.wav')
+
+#Functie om gekozen kaarten linksonder in beeld aftedrukken.
 def print_gekozen_kaarten(gekozen_kaarten):
     string_gekozen = ""
     for kaart in gekozen_kaarten:
@@ -39,25 +45,22 @@ def print_gekozen_kaarten(gekozen_kaarten):
 #maak een scherm van grootte X bij Y 
 display_surface = pygame.display.set_mode((X, Y))
 
-#geef je scherm een naam
+#Geef het window een naam
 pygame.display.set_caption('SET')
 
-#initialiseer de Font
+#initialiseer de Fonts
 TitleFont = pygame.font.SysFont("Impact", 80)
 GameFont = pygame.font.SysFont("Impact", 24)
 Endfont = pygame.font.SysFont("Javanese Text", 40)
 
-
-#houdt bij of het spel klaar is of niet
+#Als SET opstart eerst het menu.
 Menu = True
-
-
-
-#Fonts
 
 #main loop
 while True:
     while Menu is True: #Start menu
+        pygame.display.flip()
+        
         display_surface.fill(zwart) 
 
         Title = TitleFont.render("S E T", 1, rood)
@@ -67,8 +70,6 @@ while True:
         start_message = GameFont.render("Druk op 1,2 of 3 om moeilijkhiedsgraad te kiezen", 1, wit)
         start_message_rect = start_message.get_rect(center=(X/2,Y/2))
         display_surface.blit(start_message, start_message_rect)
-
-        pygame.display.flip()
 
         events = pygame.event.get()
         for event in events:
@@ -120,8 +121,7 @@ while True:
             het_spel.set_vervangen(het_spel.computer_set())
             aantal_keer_gedeeld.append(1)
             print(len(aantal_keer_gedeeld))
-            pygame.mixer.music.load('Sounds/Fout.wav')
-            pygame.mixer.music.play(0)
+            pygame.mixer.Sound.play(Fout)
             gekozen_kaarten = []
 
             start_tijd = int(time.time())
@@ -130,6 +130,11 @@ while True:
         if len(aantal_keer_gedeeld) == 22:
             Spel = False
             Einde = True
+            #geluid afhankelijk van score
+            if punten > 0:
+                pygame.mixer.Sound.play(Applause)
+            if punten <= 0:
+                pygame.mixer.Sound.play(Game_over)
 
         # Haal alle events op
         for event in pygame.event.get() : 
@@ -149,8 +154,8 @@ while True:
                     print(het_spel.gevonden_sets)
                     gekozen_kaarten.sort()
                     if het_spel.set_aanwijzen(gekozen_kaarten) is True:
-                        pygame.mixer.music.load('Sounds/ding.wav') #Geluidje
-                        pygame.mixer.music.play(0)
+                        pygame.mixer.Sound.play(Ding) #Geluidje
+                    
                         het_spel.set_vervangen(gekozen_kaarten) 
                         aantal_keer_gedeeld.append(1)
                         print(len(aantal_keer_gedeeld))
@@ -159,8 +164,8 @@ while True:
                         punten += 1
                         
                     else: #min een punt bij verkeerde set ingeven
-                        pygame.mixer.music.load('Sounds/Fout.wav')
-                        pygame.mixer.music.play(0)
+                        pygame.mixer.Sound.play(Fout)
+            
                         punten -= 1
                     
                     #reset de gekozen kaarten naar lege lijst
@@ -173,13 +178,6 @@ while True:
                 pygame.quit() 
     
                 quit() 
-    #geluid afhankelijk van score
-    if punten > 0:
-        pygame.mixer.music.load('Sounds/applause.wav')
-        pygame.mixer.music.play(0)
-    if punten <= 0:
-        pygame.mixer.music.load('Sounds/Game_over.wav')
-        pygame.mixer.music.play(0)
 
     while Einde is True:
         pygame.display.flip()
