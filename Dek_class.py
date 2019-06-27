@@ -27,7 +27,7 @@ class spel:
         return gedeeld
 
     def set_of_niet(self, first, second, third): #bepaalt of een set voldoet of niet
-        if first + second == third.vector:
+        if first + second == third.vector: # vergelijk de gezochte vector met vercor van de derde kaart
             return True
         else:
             return False
@@ -37,14 +37,14 @@ class spel:
         gevonden_sets=[]
         aantal_kaarten = len(gedeelde_kaarten)
         for i in range(0,aantal_kaarten-2): 
+            first = gedeelde_kaarten[i]
             for j in range(i+1,aantal_kaarten-1):
-                first = gedeelde_kaarten[i]
                 second = gedeelde_kaarten[j]
                 for k in range(j+1, aantal_kaarten):
                     third = gedeelde_kaarten[k]
                     if self.set_of_niet(first, second, third):
                         gevonden_sets.append([i,j,k])
-        if len(gevonden_sets) == 0:
+        if not gevonden_sets: #Als er geen sets in de gedeelde kaarten zit
             gevonden_sets.append([0,1,2])
             self.geen_sets = True
         return gevonden_sets

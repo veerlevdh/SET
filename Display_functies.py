@@ -22,7 +22,7 @@ def tussen(positie_muis, hoekpunten, x_of_y):
     return 42
 
 def waar_geklikt(positie_muis, plek_x_y):
-    locatie_dict= {"00":0,"10":1,"20":2,
+    locatie_dict= {"00":0,"10":1,"20":2, #indexen van kaarten.
                    "01":3,"11":4,"21":5,
                    "02":6,"12":7,"22":8,
                    "03":9,"13":10,"23":11,}

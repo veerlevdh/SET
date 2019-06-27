@@ -6,14 +6,14 @@ import Display_functies as disp
 import time, sys, random, pygame
 
 #Functie om alle kaarten op het scherm af te drukken.
-def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
+def print_scherm(scherm, dek, gekozen_kaarten):
     nummer = 0
-    aantal_kaarten = len(gedeelde_kaarten)
+    
     display_surface.fill(zwart) 
 
-    for y in range(0, aantal_kaarten//3):
-        for x in range(0, aantal_kaarten//4):
-            scherm.blit(gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
+    for y in range(0, 4):
+        for x in range(0, 3):
+            scherm.blit(dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
             nummer += 1
 
 # bepaal de breedte (X) en hoogte (Y) van het scherm 
@@ -59,7 +59,7 @@ Menu = True
 
 #main loop
 while True:
-    while Menu is True: #Start menu loop.
+    while Menu: #Start menu loop.
         pygame.display.flip()
         
         display_surface.fill(zwart) 
@@ -87,6 +87,11 @@ while True:
                     tijd_moeilijkheid = 10
                     Spel = True
                     Menu = False
+                if event.key == pygame.K_t:#Ga naar laatste scherm.
+                    tijd_moeilijkheid = 1
+                    Spel = False
+                    Menu = False
+                    Einde = not Menu
 
             if event.type == pygame.QUIT: #sluit window
                 pygame.quit() 
@@ -98,13 +103,13 @@ while True:
     het_spel = dek.spel() 
     gekozen_kaarten = []
     punten = 0 
-    aantal_keer_gedeeld = []
+    aantal_keer_gedeeld = 0
 
-    while Spel is True: 
+    while Spel: 
         #update het scherm
         pygame.display.flip()
         # plak de afbeeldingen van de twaalf kaarten op de locaties die we eerder met de functie locatie_kaarten hebben bepaald
-        print_scherm(display_surface, het_spel.gedeelde_kaarten, gekozen_kaarten)
+        print_scherm(display_surface, het_spel, gekozen_kaarten)
     
         #puntentelling  
 
@@ -112,27 +117,24 @@ while True:
         display_surface.blit(Punten_telling,(50,15))
         print_gekozen_kaarten(gekozen_kaarten)
         #Tijd bijhouden
-        if disp.tijd_over(start_tijd,tijd_moeilijkheid)[0] is True:
+        if disp.tijd_over(start_tijd,tijd_moeilijkheid)[0]:
             text = GameFont.render(("Tijd: " + str(disp.tijd_over(start_tijd,tijd_moeilijkheid)[1])  +" seconden"), 1, wit)
             display_surface.blit(text, (plek_x_y[0][2],15))
             
         else: #computer verwijdert een set
-            if het_spel.geen_sets is False:
-                het_spel.set_vervangen(het_spel.computer_set())
+            if not het_spel.geen_sets:
                 punten -= 1
-            if het_spel.geen_sets is True:
-                het_spel.set_vervangen(het_spel.computer_set())
+            het_spel.set_vervangen(het_spel.computer_set())
             
             pygame.mixer.Sound.play(Fout)
 
-            aantal_keer_gedeeld.append(1)
-            print(len(aantal_keer_gedeeld))
+            aantal_keer_gedeeld += 1
             gekozen_kaarten = []
             start_tijd = int(time.time())
 
-        if len(aantal_keer_gedeeld) == 22:
+        if aantal_keer_gedeeld == 22:
             Spel = False
-            Einde = True
+            Einde = not Menu
             #geluid afhankelijk van score
             if punten > 0:
                 pygame.mixer.Sound.play(Applause)
@@ -154,15 +156,12 @@ while True:
 
                 #Zodra er drie kaarten zijn gevonden
                 if len(gekozen_kaarten) == 3:
-                    print(het_spel.gevonden_sets)
                     gekozen_kaarten.sort()
-                    if het_spel.set_aanwijzen(gekozen_kaarten) is True:
-                        pygame.mixer.Sound.play(Ding) #Geluidje
+                    if het_spel.set_aanwijzen(gekozen_kaarten):
+                        pygame.mixer.Sound.play(Ding) #Geluidje omdat goed
                     
                         het_spel.set_vervangen(gekozen_kaarten) 
-                        aantal_keer_gedeeld.append(1)
-                        print(len(aantal_keer_gedeeld))
-                        print(het_spel.gevonden_sets)
+                        aantal_keer_gedeeld += 1
                         start_tijd = int(time.time())
                         punten += 1
                         
@@ -181,8 +180,9 @@ while True:
                 pygame.quit() 
     
                 quit() 
-
-    while Einde is True:
+    
+    start_tijd - int(time.time())
+    while Einde:
         pygame.display.flip()
         
         #maak achtergrond zwart
@@ -194,10 +194,8 @@ while True:
         display_surface.blit(klaar, klaar_rect)
 
         #wacht 5 seconden in dit scherm voordat terug naar menu.
-        start_tijd - int(time.time())
-        if disp.tijd_over(start_tijd,5)[1] == 0:
-            Menu = True
-            Einde = False
+        Menu = (disp.tijd_over(start_tijd,5)[1] == 0)
+        Einde = not Menu
 
         for event in pygame.event.get(): #Maak window sluitbaar.
 
