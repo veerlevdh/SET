@@ -6,7 +6,8 @@ class spel:
         self.dek = self.maak_dek()
         self.gedeelde_kaarten = self.eerste_keer_delen(self.dek)
         self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten)
-    
+        self.geen_sets = False
+
     def set_vervangen(self, gekozen_kaarten):
         if len(self.dek) > 3: #Als er nog nieuwe kaarten zijn
             for index in gekozen_kaarten:
@@ -50,6 +51,7 @@ class spel:
             return False
     
     def alle_sets_vinden(self, gedeelde_kaarten): #geeft alle sets uit een verzameling kaarten terug
+        self.geen_sets = False
         gevonden_sets=[]
         aantal_kaarten = len(gedeelde_kaarten)
         for i in range(0,aantal_kaarten-2): 
@@ -61,9 +63,9 @@ class spel:
                     if self.set_of_niet(first, second, third):
                         gevonden_sets.append([i,j,k])
         if len(gevonden_sets) == 0:
-            print("geen set")
             gevonden_sets.append([0,1,2])
-        return gevonden_sets 
+            self.geen_sets = True
+        return gevonden_sets
         
     def computer_set(self): # geeft een willekeurige set terug uit de lijst met gevonden sets
         return self.gevonden_sets[random.randint(0,len(self.gevonden_sets)-1)]

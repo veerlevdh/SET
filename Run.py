@@ -117,16 +117,18 @@ while True:
             display_surface.blit(text, (plek_x_y[0][2],15))
             
         else: #computer verwijdert een set
-            text = GameFont.render("Te laat!", 1, wit)
-            display_surface.blit(text, (plek_x_y[0][2], 15))
-            het_spel.set_vervangen(het_spel.computer_set())
+            if het_spel.geen_sets is False:
+                het_spel.set_vervangen(het_spel.computer_set())
+                punten -= 1
+            if het_spel.geen_sets is True:
+                het_spel.set_vervangen(het_spel.computer_set())
+            
+            pygame.mixer.Sound.play(Fout)
+
             aantal_keer_gedeeld.append(1)
             print(len(aantal_keer_gedeeld))
-            pygame.mixer.Sound.play(Fout)
             gekozen_kaarten = []
-
             start_tijd = int(time.time())
-            punten -= 1
 
         if len(aantal_keer_gedeeld) == 22:
             Spel = False
