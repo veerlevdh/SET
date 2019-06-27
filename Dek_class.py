@@ -7,24 +7,6 @@ class spel:
         self.gedeelde_kaarten = self.eerste_keer_delen(self.dek)
         self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten)
         self.geen_sets = False
-
-    def set_vervangen(self, gekozen_kaarten):
-        if len(self.dek) > 3: #Als er nog nieuwe kaarten zijn
-            for index in gekozen_kaarten:
-                del self.gedeelde_kaarten[index]
-                self.gedeelde_kaarten.insert(index, self.dek.pop())
-        else: #geen kaarten meer in het dek
-            for index in gekozen_kaarten:
-                del self.gedeelde_kaarten[index]
-        self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten)
-        
-    def set_aanwijzen(self, gekozen_kaarten): #Zijn de gegeven kaarten een set
-        index_eerste, index_tweede, index_derde = [kaart for kaart in gekozen_kaarten]
-        if [index_eerste,index_tweede, index_derde] in self.gevonden_sets:
-            return True
-        else:
-            return False
-    
     
     @staticmethod
     def maak_dek(): #maak alle mogelijke kaarten en returned deze in willekeurige volgorde
@@ -43,13 +25,13 @@ class spel:
         for _ in range(0,12):
             gedeeld.append(dek.pop()) #verwijder kaarten uit dek en voeg toe aan uitgedeelde kaart
         return gedeeld
-     
+
     def set_of_niet(self, first, second, third): #bepaalt of een set voldoet of niet
         if first + second == third.vector:
             return True
         else:
             return False
-    
+
     def alle_sets_vinden(self, gedeelde_kaarten): #geeft alle sets uit een verzameling kaarten terug
         self.geen_sets = False
         gevonden_sets=[]
@@ -66,6 +48,23 @@ class spel:
             gevonden_sets.append([0,1,2])
             self.geen_sets = True
         return gevonden_sets
+
+    def set_aanwijzen(self, gekozen_kaarten): #Zijn de gegeven kaarten een set
+        index_eerste, index_tweede, index_derde = [kaart for kaart in gekozen_kaarten]
+        if [index_eerste,index_tweede, index_derde] in self.gevonden_sets:
+            return True
+        else:
+            return False
         
+    def set_vervangen(self, gekozen_kaarten):
+        if len(self.dek) > 3: #Als er nog nieuwe kaarten zijn
+            for index in gekozen_kaarten:
+                del self.gedeelde_kaarten[index]
+                self.gedeelde_kaarten.insert(index, self.dek.pop())
+        else: #geen kaarten meer in het dek
+            for index in gekozen_kaarten:
+                del self.gedeelde_kaarten[index]
+        self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten)
+    
     def computer_set(self): # geeft een willekeurige set terug uit de lijst met gevonden sets
         return self.gevonden_sets[random.randint(0,len(self.gevonden_sets)-1)]

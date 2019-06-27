@@ -47,6 +47,5 @@ class kaart:
                 #vector die hieraan voldoet vervolgens in set zoeker kijken of kaart in gedeelde kaarten zit.
     
     def __add__(self, ander):#zelfde functie als boven maar aan te roepen met +
-        return [self.welk(self.aantal,ander.aantal), self.welk(self.kleur,ander.kleur),
-                self.welk(self.vulling,ander.vulling), self.welk(self.vorm,ander.vorm)]
+        return self.derde_kaart(ander)
         
