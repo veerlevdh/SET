@@ -16,7 +16,7 @@ def print_scherm(scherm, gedeelde_kaarten, gekozen_kaarten):
             scherm.blit(gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
             nummer += 1
 
-# bepaal de breedte (X) en hoogte (Y) van je scherm 
+# bepaal de breedte (X) en hoogte (Y) van het scherm 
 X = 900
 Y = 600
 plek_x_y = disp.locatie_kaarten(X,Y)
@@ -50,7 +50,7 @@ display_surface = pygame.display.set_mode((X, Y))
 pygame.display.set_caption('SET')
 
 #initialiseer de Fonts
-TitleFont = pygame.font.SysFont("Impact", 80)
+TitleFont = pygame.font.SysFont("Impact", 200)
 GameFont = pygame.font.SysFont("Impact", 24)
 Endfont = pygame.font.SysFont("Javanese Text", 40)
 
@@ -65,10 +65,10 @@ while True:
         display_surface.fill(zwart) 
 
         Title = TitleFont.render("S E T", 1, rood)
-        Title_rect = Title.get_rect(center=(X/2,Y/3))
+        Title_rect = Title.get_rect(center=(X/2,Y/4))
         display_surface.blit(Title, Title_rect)
 
-        start_message = GameFont.render("Druk op 1,2 of 3 om moeilijkhiedsgraad te kiezen", 1, wit)
+        start_message = GameFont.render("Druk op 1,2 of 3 om moeilijkheidsgraad te kiezen", 1, wit)
         start_message_rect = start_message.get_rect(center=(X/2,Y/2))
         display_surface.blit(start_message, start_message_rect)
 
