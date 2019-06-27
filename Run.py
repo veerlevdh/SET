@@ -26,6 +26,7 @@ zwart=(0,0,0)
 rood =(255,0,0) 
 wit  =(255,255,255)
 
+#start pygame.
 pygame.init() 
 
 #Laad de geluiden in.
@@ -53,12 +54,12 @@ TitleFont = pygame.font.SysFont("Impact", 80)
 GameFont = pygame.font.SysFont("Impact", 24)
 Endfont = pygame.font.SysFont("Javanese Text", 40)
 
-#Als SET opstart eerst het menu.
+#Als SET opstart eerst het menu openen.
 Menu = True
 
 #main loop
 while True:
-    while Menu is True: #Start menu
+    while Menu is True: #Start menu loop.
         pygame.display.flip()
         
         display_surface.fill(zwart) 
@@ -74,25 +75,25 @@ while True:
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
+                if event.key == pygame.K_1:#Start spel 
                     tijd_moeilijkheid = 30
                     Spel = True
                     Menu = False
-                if event.key == pygame.K_2:
+                if event.key == pygame.K_2:#Start spel
                     tijd_moeilijkheid = 20
                     Spel = True
                     Menu = False
-                if event.key == pygame.K_3:
+                if event.key == pygame.K_3:#Start spel
                     tijd_moeilijkheid = 10
                     Spel = True
                     Menu = False
 
-            if event.type == pygame.QUIT: 
+            if event.type == pygame.QUIT: #sluit window
                 pygame.quit() 
     
                 quit()
         
-    #haal huidige tijd op
+    #initialiseer alle waarden om een nieuw spel te starten.
     start_tijd = int(time.time())
     het_spel = dek.spel() 
     gekozen_kaarten = []
@@ -182,17 +183,20 @@ while True:
     while Einde is True:
         pygame.display.flip()
         
+        #maak achtergrond zwart
         display_surface.fill(zwart) 
 
+        #druk aantal behaalde punten af in het midden van het scherm
         klaar = Endfont.render("Het spel is klaar, je hebt  "+ str(punten)+" punten behaald!!!", 1, rood)
         klaar_rect = klaar.get_rect(center=(X/2,Y/2))
         display_surface.blit(klaar, klaar_rect)
 
-       
+        #wacht 5 seconden in dit scherm voordat terug naar menu.
         start_tijd - int(time.time())
         if disp.tijd_over(start_tijd,5)[1] == 0:
             Menu = True
             Einde = False
+
         for event in pygame.event.get(): #Maak window sluitbaar.
 
             if event.type == pygame.QUIT : 
