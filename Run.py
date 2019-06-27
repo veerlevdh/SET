@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 
-import Kaart_class as cards
+import random
+import sys
+import time
+
 import Dek_class as dek
 import Display_functies as disp
-import time, sys, random, pygame
+import Kaart_class as cards
+import pygame
+
 
 #Functie om alle kaarten op het scherm af te drukken.
 def print_scherm(scherm, dek, gekozen_kaarten):

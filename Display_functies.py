@@ -1,6 +1,8 @@
-import Kaart_class as cards
-import Dek_class as deks
 import time
+
+import Dek_class as deks
+import Kaart_class as cards
+
 
 def locatie_kaarten(X,Y):
     X_coordinaten = []
@@ -41,30 +43,3 @@ def tijd_over(start_tijd, tijd_moeilijkheid):
         return True, tijd
     else:
         return False, tijd
-
-
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        

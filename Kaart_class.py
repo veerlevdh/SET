@@ -1,5 +1,7 @@
-import pygame 
 import random
+
+import pygame
+
 kleur_dict = {-1:"green",
                0: "red",
                1: "purple"}  
@@ -48,4 +50,3 @@ class kaart:
     
     def __add__(self, ander):#zelfde functie als boven maar aan te roepen met +
         return self.derde_kaart(ander)
-        

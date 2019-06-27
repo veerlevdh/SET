@@ -1,5 +1,7 @@
 import random
+
 import Kaart_class as cards
+
 
 class spel:
     def __init__(self):
