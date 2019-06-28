@@ -5,10 +5,10 @@ import Kaart_class as cards
 
 class spel:
     def __init__(self):
-        self.dek = self.maak_dek()
-        self.gedeelde_kaarten = self.eerste_keer_delen(self.dek)
-        self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten)
-        self.geen_sets = False
+        self.dek = self.maak_dek() #Alle kaarten
+        self.gedeelde_kaarten = self.eerste_keer_delen(self.dek) #Lijst met de twaalf gedeelde kaarten
+        self.gevonden_sets = self.alle_sets_vinden(self.gedeelde_kaarten) #lijst met lijsten waarin de indexen staan van de sets in gedeelde_kaarten
+        self.geen_sets = False #ALs er Sets in gevonden_Sets zijn dan False anders True zodat er geen punt wordt afgetrokken bij de speler
     
     @staticmethod
     def maak_dek(): #maak alle mogelijke kaarten en returned deze in willekeurige volgorde
@@ -18,21 +18,18 @@ class spel:
                 for vulling in [-1,0,1]:
                     for vorm in [-1,0,1]:
                         dek.append(cards.kaart(aantal, kleur, vulling, vorm))
-        random.shuffle(dek)
+        random.shuffle(dek) #Dek schudden
         return dek
     
     @staticmethod
-    def eerste_keer_delen(dek):#pakt de laatste twaalf kaarten uit de lijst. 
+    def eerste_keer_delen(dek):#Deel twaalf kaarten uit.
         gedeeld=[]
         for _ in range(0,12):
             gedeeld.append(dek.pop()) #verwijder kaarten uit dek en voeg toe aan uitgedeelde kaart
         return gedeeld
 
     def set_of_niet(self, first, second, third): #bepaalt of een set voldoet of niet
-        if first + second == third.vector: # vergelijk de gezochte vector met vercor van de derde kaart
-            return True
-        else:
-            return False
+        return (first + second == third.vector) # vergelijk de gezochte vector met vercor van de derde kaart
 
     def alle_sets_vinden(self, gedeelde_kaarten): #geeft alle sets uit een verzameling kaarten terug
         self.geen_sets = False
