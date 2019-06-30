@@ -4,7 +4,7 @@ import random
 import sys
 import time
 
-import Dek_class as dek
+import Spel_class as dek
 import Display_functies as disp
 import Kaart_class as cards
 import pygame
@@ -198,6 +198,7 @@ while True:
                 quit()
 
     start_tijd - int(time.time())
+	
     while Einde:
         pygame.display.flip()
 

@@ -18,9 +18,7 @@ aantal_dict = {-1: "1",
                0: "2",
                1: "3"}
 
-
 class kaart:
-
     def __init__(self, aantal, kleur, vulling, vorm):
         self.aantal = aantal
         self.kleur = kleur
@@ -29,6 +27,7 @@ class kaart:
         self.vector = [aantal, kleur, vulling, vorm]
         # lijst met alle eigenschappen in vector vorm
 
+		#Maak de filenaam van het plaatje
         plaatje = str(kleur_dict[self.kleur]) + str(vorm_dict[self.vorm]) + \
             str(vulling_dict[self.aantal]) + str(aantal_dict[self.vulling])
         self.image = pygame.image.load("img/" + plaatje + ".png")

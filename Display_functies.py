@@ -1,6 +1,6 @@
 import time
 
-import Dek_class as deks
+import Spel_class as deks
 import Kaart_class as cards
 
 
