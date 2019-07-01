@@ -117,7 +117,7 @@ while True:
     gekozen_kaarten = []
     punten = 0
     aantal_keer_gedeeld = 0
-
+    
     while Spel:
         # update het scherm
         pygame.display.flip()
