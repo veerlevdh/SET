@@ -13,6 +13,7 @@ class spel:
         # ALs er Sets in gevonden_Sets zijn dan False anders True zodat er geen punt wordt afgetrokken bij de speler
         self.geen_sets = False
 
+
     @staticmethod
     def maak_dek():  # maak alle mogelijke kaarten en returned deze in willekeurige volgorde
         dek = []  # 81 kaarten in een set dek

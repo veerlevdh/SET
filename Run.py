@@ -13,15 +13,36 @@ import pygame
 # Functie om alle kaarten op het scherm af te drukken.
 def print_scherm(scherm, dek, gekozen_kaarten):
     nummer = 0
-
     display_surface.fill(zwart)
-
     for y in range(0, 4):
         for x in range(0, 3):
             scherm.blit(
                 dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
+            if len(gekozen_kaarten) > 0 and  (y*3)+x == gekozen_kaarten[0] :
+                    scherm.blit(
+                          dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x]+10, plek_x_y[1][y]+10))
+            if len(gekozen_kaarten)>1 and (y*3)+x == gekozen_kaarten[1]:            
+                    scherm.blit(
+                          dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x]+10, plek_x_y[1][y]+10))            
             nummer += 1
 
+def toon(scherm, dek, gekozen_kaarten):
+    nummer = 0
+    for y in range(0, 4):
+        for x in range(0, 3):
+            scherm.blit(
+                dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x], plek_x_y[1][y]))
+            if (y*3)+x == gekozen_kaarten[0] :
+                    scherm.blit(
+                          dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x]+10, plek_x_y[1][y]+10))
+            if (y*3)+x == gekozen_kaarten[1]:            
+                    scherm.blit(
+                          dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x]+10, plek_x_y[1][y]+10))            
+            if (y*3)+x == gekozen_kaarten[2]:            
+                    scherm.blit(
+                          dek.gedeelde_kaarten[nummer].image, (plek_x_y[0][x]+10, plek_x_y[1][y]+10))            
+            nummer += 1
+  
 
 # bepaal de breedte (X) en hoogte (Y) van het scherm
 X = 900
@@ -138,12 +159,24 @@ while True:
 
         # computer verwijdert een set
         else:
-            if not het_spel.geen_sets:
-                punten -= 1
-            het_spel.set_vervangen(het_spel.computer_set())
-
             pygame.mixer.Sound.play(Fout)
 
+            if not het_spel.geen_sets:
+                punten -= 1
+
+            to_show = het_spel.computer_set()
+            print_scherm(display_surface, het_spel, [])
+            toon(display_surface, het_spel, to_show)
+            pygame.display.flip()
+            niet_gezien = True
+            while niet_gezien:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        niet_gezien = False
+            het_spel.set_vervangen(to_show)
+
+
+            
             aantal_keer_gedeeld += 1
             gekozen_kaarten = []
             start_tijd = int(time.time())
