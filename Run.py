@@ -231,25 +231,57 @@ while True:
                 quit()
 
     start_tijd - int(time.time())
-	
+
+    alfabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 
+               'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    letter = 0 
+    eerste_tweede_derde_letter = 0
+    lettertjes = ['A','A','A']
+
     while Einde:
+
+
         pygame.display.flip()
 
         # maak achtergrond zwart
         display_surface.fill(zwart)
 
+        lettertjes[eerste_tweede_derde_letter % 3] = alfabet[letter % 26]
+
+
+
         # druk aantal behaalde punten af in het midden van het scherm
         klaar = Endfont.render(
-            "Het spel is klaar, je hebt  " + str(punten)+" punten behaald!!!", 1, rood)
+            "Het spel is klaar, je hebt  " + str(punten) + " punten behaald!!!", 1, rood)
         klaar_rect = klaar.get_rect(center=(X/2, Y/2))
-        display_surface.blit(klaar, klaar_rect)
 
-        # wacht 5 seconden in dit scherm voordat terug naar menu.
-        Menu = (disp.tijd_over(start_tijd, 5)[1] == 0)
-        Einde = not Menu
+        initials = Endfont.render(
+            lettertjes[0] + lettertjes[1] + lettertjes[2], 1, wit)
+        initials_rect = initials.get_rect(center=(X/2, Y/2+40))
+
+        display_surface.blit(klaar, klaar_rect)
+        display_surface.blit(initials, initials_rect)
+        
+
 
         for event in pygame.event.get():  # Maak window sluitbaar.
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:  # Start spel
+                    letter += 1
+                
+                if event.key == pygame.K_DOWN:  # Start spel
+                    letter -= 1
 
+                if event.key == pygame.K_RIGHT:  # Start spel
+                    eerste_tweede_derde_letter += 1
+                    letter = alfabet.index(lettertjes[eerste_tweede_derde_letter%3])
+                if event.key == pygame.K_LEFT:  # Ga naar laatste scherm.
+                    eerste_tweede_derde_letter -= 1
+                    letter = alfabet.index(lettertjes[eerste_tweede_derde_letter%3])
+                if event.key == pygame.K_SPACE:  # Ga naar laatste scherm.
+                    Menu = True
+                    Einde = not Menu
+                
             if event.type == pygame.QUIT:
                 pygame.quit()
 
